@@ -15,7 +15,7 @@ object sueroMutante {
 	method cumpleRequisitos(unMinion) = unMinion.tieneCantidadDeBananasMayorA(100) and unMinion.tieneNivelDeConcentracionMayorA(23)
 	
 	method premiarMinions(unVillano, unosMinions) {
-		unVillano.administrarSueroMutante(unosMinions)
+		unVillano.administrarSueroMutanteAMinions(unosMinions)
 	}
 }
 

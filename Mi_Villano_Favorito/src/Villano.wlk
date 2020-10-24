@@ -42,6 +42,10 @@ class Villano {
 		return minions.filter({minion => minion.estaCapacitado(unaMaldad)})
 	}
 	
+	method sumarCantidadDeMaldad(unMinion) {
+		unMinion.sumarMaldad()
+	}
+	
 	method minionsCapacitados() = minionsCapacitados
 	
 	method dar10BananasAMinions(unosMinions) {
@@ -55,4 +59,12 @@ class Villano {
 	method administrarSueroMutanteAMinions(unosMinions) {
 		unosMinions.forEach({minion => self.darSueroMutante(minion)})
 	}
+	
+	method sumarCantidadDeMaldadAMinions(unosMinions) {
+		unosMinions.forEach({minion => self.sumarCantidadDeMaldad(minion)})
+	}
+	
+	method minionMasUtil() = minions.max({minion => minion.cantidadDeMaldadesHechas()})
+	
+	method minionsInutiles() = minions.filter({minion => minion.cantidadDeMaldadesHechas() == 0})
 }

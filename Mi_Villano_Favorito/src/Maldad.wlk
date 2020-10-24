@@ -6,7 +6,12 @@ object congelar {
 	
 	method realizarMaldad(unVillano, unosMinions, unaCiudad) {
 		unaCiudad.bajarTemperatura(30)
+		self.contabilizarMaldad(unVillano, unosMinions)
 		self.premiarMinions(unVillano, unosMinions)
+	}
+	
+	method contabilizarMaldad(unVillano, unosMinions) {
+			unVillano.sumarCantidadDeMaldadAMinions(unosMinions)
 	}
 	
 	method puedeParticipar(unMinion) = unMinion.tieneArma("Rayo Congelante") and unMinion.tieneNivelDeConcentracionMayorA(nivelDeConcentracionEstablecido)
@@ -21,7 +26,12 @@ class Robar {
 	
 	method realizarMaldad(unVillano, unosMinions, unaCiudad) {
 		unaCiudad.perder(objetoARobar)
+		self.contabilizarMaldad(unVillano, unosMinions)
 		self.premiarMinions(unVillano, unosMinions)
+	}
+	
+	method contabilizarMaldad(unVillano, unosMinions) {
+			unVillano.sumarCantidadDeMaldadAMinions(unosMinions)
 	}
 	
 	method puedeParticipar(unMinion) = unMinion.esPeligroso() and objetoARobar.cumpleRequisitos(unMinion)

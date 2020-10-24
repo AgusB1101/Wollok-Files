@@ -4,6 +4,8 @@ import Arma.*
 class Minion {
 	var color = amarillo
 	var cantidadDeBananas
+	var cantidadDeMaldadesHechas = 0
+	
 	const property armas = []
 	
 	method color() = color
@@ -53,4 +55,10 @@ class Minion {
 	method tieneNivelDeConcentracionMayorA(unValor) = self.nivelDeConcentracion() > unValor
 	
 	method tieneCantidadDeBananasMayorA(unValor) = cantidadDeBananas > unValor
+	
+	method sumarMaldad() {
+		cantidadDeMaldadesHechas += 1
+	}
+	
+	method cantidadDeMaldadesHechas() = cantidadDeMaldadesHechas
 }
