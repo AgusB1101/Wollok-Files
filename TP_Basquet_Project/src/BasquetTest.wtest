@@ -1,0 +1,74 @@
+import Entrenador.*
+import Jugador.*
+import Equipo.*
+import Estilo.*
+
+
+describe "Basquet Test" {
+	
+    test "Si solo franco es sucio, no se aplicará el bono suciedad y, por lo tanto, la valoración total del equipo es 107.528" {
+        juan.esSucio(false)
+        franco.esSucio(true)
+        aye.esSucio(false)
+
+        assert.equals(equipoPdep.valoracionTotal(), 107.528)
+    }
+
+    test "Si todos comparten el mismo estado de suciedad, el bono sucieded es aplicado y la valoracion total aumenta" {
+        const valoracionTotalAnterior = equipoPdep.valoracionTotal()
+        
+        juan.esSucio(false)
+        franco.esSucio(false)
+        aye.esSucio(false)
+
+        assert.that(equipoPdep.valoracionTotal() > valoracionTotalAnterior)
+    }
+
+    test "Aye inicialmente no es crack" {
+        assert.notThat(aye.esCrack())
+    }
+
+    test "Si Felipe Scarpa entrena 18 veces a Aye, se vuelve crack siendo pasador" {
+        18.times({_ => felipeScarpa.entrenar(aye)})
+        
+        assert.that(aye.esCrack())
+    }
+
+    test "Inicialmente EquipoPdeP no es Dream Team"{
+        assert.notThat(equipoPdep.dreamTeam())
+    }
+    
+	test "Si aumento la eficacia de juan siendo rebotador, la habilidad no varía" {
+        juan.estiloJugador(reboteador)
+        
+        const habilidadInicial = juan.habilidad()
+        
+        juan.aumentarEficacia(10)
+        
+        assert.equals(habilidadInicial, juan.habilidad())
+    }
+
+    test "Si aumento el talento de franco siendo rebotador, la habilidad empeora" {
+        franco.estiloJugador(reboteador)
+        
+        const habilidadInicial = franco.habilidad()
+        
+        franco.aumentarTalento(10)
+
+        assert.that(franco.habilidad() < habilidadInicial)
+    }
+
+    test "Por más que Aye aumenten su eficacia y su talento, nunca puede ser leyenda" {
+        aye.aumentarEficacia(5000)
+        aye.aumentarTalento(5000)
+
+        assert.notThat(aye.esLeyenda())
+    }
+
+    test "Aunque se entrenen 100 veces a los jugadores, el EquipoPdeP nunca puede ser DreamTeam" {
+        const entrenar100Veces = {jugador => 100.times({_ => equipoPdep.entrenador().entrenar(jugador)})}
+
+        equipoPdep.jugadores().forEach(entrenar100Veces)
+        assert.notThat(equipoPdep.dreamTeam())
+    }
+}
