@@ -1,0 +1,95 @@
+import Entrenador.*
+import Jugador.*
+import Equipo.*
+import Estilo.*
+import TipoEntrenador.*
+
+describe "Basquet Test Entrega 2" {
+
+	test "La habilidad de Juan inicialmente es 108.375" {
+		assert.equals(juan.habilidad(), 108.375)
+	}
+	
+	test "La habilidad de Aye inicialmente es 45.32" {
+		assert.equals(aye.habilidad(), 45.32)
+	}
+	
+	test "La habilidad de Franco inicialmente es 96" {
+		assert.equals(franco.habilidad(), 96)
+	}
+	
+	test "Juan inicialmente es crack" {
+		assert.that(juan.esCrack())
+	}
+	
+	test "Aye inicialmente no es crack" {
+		assert.notThat(aye.esCrack())
+	}
+	
+	test "Lebron es leyenda" {
+		assert.that(lebron.esLeyenda())
+	}
+	
+	test "Juan no es leyenda" {
+		assert.notThat(juan.esLeyenda())
+	}
+	
+	test "Si Felipe Scarpa entrena a Aye, su stamina baja a 95" {
+		felipeScarpa.entrenar(aye)
+		
+		assert.equals(aye.nivelDeStamina(), 95)
+	}
+	
+	test "Si Felipe Scarpa entrena a Aye, su habilidad cae a 41.38, porque se cansó" {
+		felipeScarpa.entrenar(aye)
+		
+		assert.equals(aye.habilidad(), 41.38)
+	}
+	
+	test "Si Felipe Scarpa entre a Aye dos veces, su habilidad es 37.546" {
+		2.times({_ => felipeScarpa.entrenar(aye)})
+		
+		assert.equals(aye.habilidad(), 37.546)
+	}
+	
+	test "Si Felipe Scarpa entrena a Aye dos veces, luego descansa recuperando 20 puntos de stamina, su habilidad es de 47.546" {
+		2.times({_ => felipeScarpa.entrenar(aye)})
+		aye.descansar(20)
+		
+		assert.equals(aye.habilidad(), 47.546)
+	}
+	
+	test "La valoración total del Equipo PdeP con Felipe Scarpa de entrenador es 83.23167" {
+		felipeScarpa.dirigir(equipoPdep)
+		
+		assert.equals(equipoPdep.valoracionTotal(), 83.23167)
+	}
+	
+	test "La valoración total de Los Lakers con Caruso Lombardi de entrenador es 120.66459" {
+		carusoLombardi.dirigir(losLakers)
+		
+		assert.equals(losLakers.valoracionTotal(), 120.66459)
+	}
+	
+	test "Si Caruso Lombardi dirige al Equipo PdeP, su valoración total es 70.74692" {
+		carusoLombardi.dirigir(equipoPdep)
+		
+		assert.equals(equipoPdep.valoracionTotal(), 70.74692)
+	}
+	
+	test "Si Becky Hammon entrena al Equipo PdeP, todos sus miembros pasan a ser tiradores" {
+		beckyHammon.dirigir(equipoPdep)
+		beckyHammon.entrenarEquipo()
+		
+		const jugadoresDeEquipo = equipoPdep.jugadores()
+		
+		assert.that(jugadoresDeEquipo.all({unJugador => unJugador.estiloJugador() == tirador}))
+	}
+	
+	test "Si Becky Hammon entrena al Equipo PdeP, la valoración total pasa a ser 132.36708" {
+		beckyHammon.dirigir(equipoPdep)
+		beckyHammon.entrenarEquipo()
+		
+		assert.equals(equipoPdep.valoracionTotal(), 132.36708)
+	}
+}
